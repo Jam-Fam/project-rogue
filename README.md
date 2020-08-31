@@ -33,3 +33,7 @@ Note: Using the `.` will stage all your changed files. If you don't want to do t
 
 ### 4. Create a Pull Request
 Now your changes will be pushed to GitHub, but will not yet be merged with the master branch. When you're finished and think you're ready to merge your code with the master branch, you can submit a Pull Request. On the repository [main page](https://github.com/Jam-Fam/project-rogue), switch from the 'master' branch to the one you just created.
+
+From there, you can click "Pull Request", which lets you create a request to merge your new branch with the master branch. GitHub will tell if you if there are any merge conflicts. If there aren't, you can click 'Create Pull Request' to submit your PR. 
+
+Finally, let another member of the team know that you've submitted a PR so that they can review your code and accept the pull request or ask you to make changes.

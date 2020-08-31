@@ -11,7 +11,7 @@
 Pick an Objective card from the To Do List on the [trello board](https://trello.com/b/aKf2KCnF/jamfam-community-game). Transfer that card into the Taken Task column, then add yourself to the Objective by clicking on the card, then on Members (under "Add to card"), and then selecting yourself.
 
 ### 2. Create a Git Branch
-**In Git Bash:**
+#### In Git Bash:
 Create and checkout a new branch with the command `git checkout -b `. Name the branch with one of the following styles, depending on the "Type" field on your Objective card: 
 `feature/branch-name`
 `bugfix/branch-name`
@@ -21,7 +21,7 @@ Create and checkout a new branch with the command `git checkout -b `. Name the b
 Work as normal, writing and testing your code in Unity. Try to keep any changes within the scope of the Objective card(s) you have signed out.
 
 ### 3. Commit and Push Your Changes
-**In Git Bash:**
+#### In Git Bash:
 Run the following commands in order:
 
  * `git status` - This lets you review any changes you've made. Check this out to make sure you're not about to push changes you don't want to.

@@ -8,7 +8,7 @@
 ## How To Contribute
 
 ### 1. Sign Out an Objective 
-Pick an Objective card from the To Do List on the [trello board](https://trello.com/b/aKf2KCnF/jamfam-community-game). Transfer that card into the Taken Tast column, then add yourself to the Objective by clicking on the card, then on Members (under "Add to card"), and then selecting yourself.
+Pick an Objective card from the To Do List on the [trello board](https://trello.com/b/aKf2KCnF/jamfam-community-game). Transfer that card into the Taken Task column, then add yourself to the Objective by clicking on the card, then on Members (under "Add to card"), and then selecting yourself.
 
 ### 2. Create a Git Branch
 **In Git Bash:**

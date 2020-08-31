@@ -31,4 +31,5 @@ Note: Using the `.` will stage all your changed files. If you don't want to do t
  * `git commit -m "Describe your changes here.` This will commit the changes you've made so that you can push them to the public repo.
  * `git push origin insert/branch-name` Replace 'insert/branch-name' with the name of your branch. E.g. `git push origin feature/basic-movement`
 
-Now your changes will be pushed to GitHub, but will not yet be merged with the master branch. When you're finished and think you're ready to merge your code with the master branch, you can submit a Pull Request.
+### 4. Create a Pull Request
+Now your changes will be pushed to GitHub, but will not yet be merged with the master branch. When you're finished and think you're ready to merge your code with the master branch, you can submit a Pull Request. On the repository [main page](https://github.com/Jam-Fam/project-rogue), switch from the 'master' branch to the one you just created.

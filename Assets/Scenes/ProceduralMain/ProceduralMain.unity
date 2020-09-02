@@ -296,7 +296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.4, y: 36.9, z: -70}
+  m_LocalPosition: {x: 27.4, y: 37.6, z: -70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -88665,12 +88665,7 @@ MonoBehaviour:
   tilemapPrefab: {fileID: 1183063722}
   playerPrefab: {fileID: 0}
   blackTile: {fileID: 11400000, guid: cdc9ee4946276a5408f481e5bd0ed59c, type: 2}
-  numRoomsX: 5
-  numRoomsY: 4
-  roomWidth: 20
-  roomHeight: 16
-  floorHeight: 3
-  wallWidth: 2
+  mapGenSettings: {fileID: 11400000, guid: dad189b6c381b0f4db380a37bfaf4db4, type: 2}
   playerSpawnOffset: {x: 2, y: 3}
 --- !u!4 &1676710319
 Transform:
@@ -88698,9 +88693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e3d6bfec4a251488092bbd63fb5d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  templateRootDirectory: RoomTemplates
-  templateDirectoryNoHoles: NoHoles
-  templateDirectoryBottomHoles: BottomHoles
 --- !u!19719996 &937236161084437026
 TilemapCollider2D:
   m_ObjectHideFlags: 0

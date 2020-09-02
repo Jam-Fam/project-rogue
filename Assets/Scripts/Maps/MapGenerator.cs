@@ -1,35 +1,30 @@
 ﻿
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 using UnityEngine;
 
-namespace Rogue.Maps
+namespace ProjectRogue.Maps
 {
     public class MapGenerator : MonoBehaviour
     {
         // Settings
-        [SerializeField] private string templateRootDirectory = "";
-        [SerializeField] private string templateDirectoryNoHoles = "", templateDirectoryBottomHoles = "";
-        private int roomWidth, roomHeight, numRoomsX, numRoomsY;
-        private List<RoomTemplateData> templatesNoHole, templatesBottomHole;
+        private MapGenerationSettings mapGenSettings;
 
         // State
         private RoomData[,] rooms;
+        private List<RoomTemplate> roomTemplatesNoHole, roomTemplatesBottomHole;
 
-        public RoomData[,] GenerateMap(int roomWidth, int roomHeight, int numRoomsX, int numRoomsY)
+        public RoomData[,] GenerateMap(MapGenerationSettings mapGenSettings)
         {
-            this.roomWidth = roomWidth;
-            this.roomHeight = roomHeight;
-            this.numRoomsX = numRoomsX;
-            this.numRoomsY = numRoomsY;
+            this.mapGenSettings = mapGenSettings;
 
             loadRoomTemplates();
 
-            rooms = rooms = new RoomData[numRoomsX, numRoomsY];
+            rooms = rooms = new RoomData[mapGenSettings.NumRoomsX, mapGenSettings.NumRoomsY];
 
-            generateMainPath();
+            generateRooms();
+            //generateMainPath();
             //generateSidePaths();
 
             Resources.UnloadUnusedAssets();
@@ -39,40 +34,22 @@ namespace Rogue.Maps
 
         private void loadRoomTemplates()
         {
-            templatesNoHole = loadRoomTemplateCategory(templateDirectoryNoHoles);
-            templatesBottomHole = loadRoomTemplateCategory(templateDirectoryBottomHoles);
+            roomTemplatesNoHole = RoomTemplateLoader.LoadRoomsSolidBottom(mapGenSettings);
+            roomTemplatesBottomHole = RoomTemplateLoader.LoadRoomsOpenBottom(mapGenSettings);
         }
 
-        private List<RoomTemplateData> loadRoomTemplateCategory(string directory)
+        private void generateRooms()
         {
-            var templates = new List<RoomTemplateData>();
-
-            // Load room templates.
-            string templatePath = Path.Combine(templateRootDirectory, directory);
-            Texture2D[] templateTextures = Resources.LoadAll(templatePath, typeof(Texture2D)).Cast<Texture2D>().ToArray();
-
-            foreach (Texture2D templateTexture in templateTextures)
+            for (int ix = 0; ix < mapGenSettings.NumRoomsX; ix++)
             {
-                // Create template for this room;
-                var template = new RoomTemplateData(roomWidth, roomHeight);
-
-                Color[] pixels = templateTexture.GetPixels();
-
-                for (int ix = 0; ix < roomWidth; ix++)
+                for (int iy = 0; iy < mapGenSettings.NumRoomsY; iy++)
                 {
-                    for (int iy = 0; iy < roomHeight; iy++)
-                    {
-                        Color pixel = pixels[iy * roomWidth + ix];
-                        template.Tiles[ix, iy] = pixel == Color.white;
-                    }
+                    rooms[ix, iy] = generateRoom(new Vector2Int(ix, iy), roomTemplatesNoHole);
                 }
-
-                templates.Add(template);
             }
-
-            return templates;
         }
 
+        /*
         private void generateMainPath()
         {
             Vector2Int currentPosition = new Vector2Int(0, Random.Range(0, numRoomsY));
@@ -155,10 +132,11 @@ namespace Rogue.Maps
 
             return available;
         }
+        */
 
-        private RoomData generateRoom(Vector2Int position, List<RoomTemplateData> templates)
+        private RoomData generateRoom(Vector2Int position, List<RoomTemplate> templates)
         {
-            RoomTemplateData chosenTemplate = templates[Random.Range(0, templates.Count)];
+            RoomTemplate chosenTemplate = templates[UnityEngine.Random.Range(0, templates.Count)];
 
             RoomData room = new RoomData(position, chosenTemplate);
 
@@ -176,24 +154,14 @@ namespace Rogue.Maps
         public bool Occupied;
         public bool IsStartingRoom;
         public Vector2Int Position;
-        public RoomTemplateData Data;
+        public RoomTemplate Data;
 
-        public RoomData(Vector2Int position, RoomTemplateData data)
+        public RoomData(Vector2Int position, RoomTemplate data)
         {
             this.Position = position;
             this.Data = data;
             this.Occupied = true;
             this.IsStartingRoom = false;
-        }
-    }
-
-    public struct RoomTemplateData
-    {
-        public bool[,] Tiles;
-
-        public RoomTemplateData(int roomWidth, int roomHeight)
-        {
-            Tiles = new bool[roomWidth,roomHeight];
         }
     }
 }

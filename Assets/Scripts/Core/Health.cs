@@ -10,7 +10,7 @@ namespace ProjectRogue.Core
         [SerializeField] private int startingHealth = 100;
 
         // State
-        [SerializeField] private int currentHealth;
+        [SerializeField] public int currentHealth;
 
         // Events 
         [SerializeField] private UnityEvent DeathEvent;

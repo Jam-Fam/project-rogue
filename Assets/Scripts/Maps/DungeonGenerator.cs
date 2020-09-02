@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-namespace Rogue.Maps
+namespace ProjectRogue.Maps
 {
     public class DungeonGenerator : MonoBehaviour
     {
@@ -20,12 +20,7 @@ namespace Rogue.Maps
         private MapGenerator mapGenerator;
 
         // Settings 
-        [SerializeField] private int numRoomsX = 5;
-        [SerializeField] private int numRoomsY = 4;
-        [SerializeField] private int roomWidth = 20;
-        [SerializeField] private int roomHeight = 16;
-        [SerializeField] private int floorHeight = 3;
-        [SerializeField] private int wallWidth = 2;
+        [SerializeField] private MapGenerationSettings mapGenSettings;
         [SerializeField] private Vector2 playerSpawnOffset = Vector2.zero;
 
         // State
@@ -48,7 +43,7 @@ namespace Rogue.Maps
 
         public void GenerateDungeon()
         {
-            rooms = mapGenerator.GenerateMap(roomWidth, roomHeight, numRoomsX, numRoomsY);
+            rooms = mapGenerator.GenerateMap(mapGenSettings);
 
             clearMap();
             drawMap();
@@ -71,9 +66,9 @@ namespace Rogue.Maps
         {
             foreach (RoomData room in rooms)
             {
-                for (int ix = 0; ix < roomWidth; ix ++)
+                for (int ix = 0; ix < mapGenSettings.RoomWidth; ix ++)
                 {
-                    for (int iy = 0; iy < roomHeight; iy++)
+                    for (int iy = 0; iy < mapGenSettings.RoomHeight; iy++)
                     {
                         if (room.Data.Tiles == null) continue;
 
@@ -81,8 +76,7 @@ namespace Rogue.Maps
 
                         if (drawTile)
                         {
-                            Vector3Int position = new Vector3Int(ix + (room.Position.x * (roomWidth + wallWidth)), iy + (room.Position.y * (roomHeight + floorHeight)), 0);
-                            //tilemap.SetTile(position, blackTile);
+                            Vector3Int position = new Vector3Int(ix + (room.Position.x * (mapGenSettings.RoomWidth + mapGenSettings.WallWidth)), iy + (room.Position.y * (mapGenSettings.RoomHeight + mapGenSettings.FloorHeight)), 0);
                             currentTilemap.SetTile(position, null);
                         }
                     }
@@ -97,7 +91,7 @@ namespace Rogue.Maps
                 if (room.IsStartingRoom && playerPrefab != null)
                 {
                     // TODO: Scrap 'playerSpawnOffset' for a system that dynamically finds a safe place to spawn entities.
-                    Vector3 spawnPosition = (room.Position * new Vector2(roomWidth, roomHeight)) + playerSpawnOffset;
+                    Vector3 spawnPosition = (room.Position * new Vector2(mapGenSettings.RoomWidth, mapGenSettings.RoomHeight)) + playerSpawnOffset;
                     GameObject player = (GameObject)Instantiate(playerPrefab, new Vector3(spawnPosition.x, spawnPosition.y, 0), Quaternion.identity);
                     player.SetActive(true);
                     entities.Add(player);

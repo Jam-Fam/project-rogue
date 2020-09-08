@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class LinearBar : MonoBehaviour
+namespace ProjectRogue.UI
 {
-    [SerializeField] private RectTransform fill;
-    [Range(0, 100)]
-    [SerializeField] private float progress = 100f;
-
-    private void Update()
+    [ExecuteInEditMode]
+    public class LinearBar : MonoBehaviour
     {
-        fill.localScale = new Vector3(1f, progress / 100, 1f);
+        [SerializeField] private RectTransform fill;
+        [Range(0, 1)]
+        public float Progress = 1;
+
+        private void Update()
+        {
+            fill.localScale = new Vector3(1f, Progress, 1f);
+        }
     }
 }
